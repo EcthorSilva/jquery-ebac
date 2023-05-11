@@ -30,10 +30,10 @@
                             <a class="nav-link" href="products.html">Produtos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Sobre nós</a>
+                            <a class="nav-link nav-modal-open" href="about.html" rel="sobre">Sobre nós</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contato</a>
+                            <a class="nav-link nav-modal-open" href="contact.html" rel="contato">Contato</a>
                         </li>
                     </ul>
                 </div>
@@ -220,6 +220,51 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Optional: Place to the bottom of scripts -->
+        <script>
+            const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+        </script>
+        
+        <div id="contato" class="visually-hidden">
+            <form action="post" class="form">
+                <!-- Nome -->
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Digite seu nome"
+                        aria-describedby="helpNome">
+                    <small id="helpNome" class="text-muted">Digite um nome valido</small>
+                </div>
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="e-mail" class="form-label">e-mail</label>
+                    <input type="text" name="e-mail" id="e-mail" class="form-control" placeholder="Digite seu e-mail"
+                        aria-describedby="helpE-mail">
+                    <small id="helpE-mail" class="text-muted">Digite um E-mail valido</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </div>
+
+        <div id="sobre">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ipsa tenetur, mollitia suscipit libero, sunt dignissimos iste pariatur cumque officiis error molestias sed illo modi maxime nobis ex unde totam.</p>
+        </div>
+
         <script src="./vendor/jquery/jquery-3.6.4.min.js"></script>
         <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="./vendor/owl/js/owl.js"></script>
