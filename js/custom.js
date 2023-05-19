@@ -91,23 +91,15 @@ $(document).ready(function(){ // jQuery( function($){
     function validate(elem) {
         if (elem.val() === '') {
             console.log('O campo ' + elem.attr('name') + ' é obrigatório.');
+            elem.parent().find('.text-muted').show();
+
             elem.addClass('invalid');
+
             return false;
         } else {
+            elem.parent().find('.text-muted').hide();
             elem.removeClass('invalid');
-            return true;
         }
-    }
-
-    // Função para validar o nome (deve ter mais de 2 caracteres)
-    function validateName(name) {
-        return name.length > 2;
-    }
-
-    // Função para validar o email (deve ter um formato válido)
-    function validateEmail(email) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
     }
 
     // Manipulador do evento de envio do formulário
@@ -117,34 +109,51 @@ $(document).ready(function(){ // jQuery( function($){
         const inputName = $('#nome');
         const inputEmail = $('#e-mail');
 
+        // Valida os campos de nome e email
+        validate(inputName);
+        validate(inputEmail);
+
+        // Verifica se algum campo está inválido
         if (inputName.hasClass('invalid') || inputEmail.hasClass('invalid')) {
             console.log('Campos inválidos');
             return false;
         } else {
-            // Submeter o formulário se os campos forem válidos
-            $(this).get(0).submit();
+            // Submete o formulário se os campos forem válidos
+            $(this).submit();
         }
     });
 
     // Manipulador do evento de perda de foco do campo nome
     $('body').on('blur', '#nome', function () {
-        const name = $(this).val();
-        if (!validateName(name)) {
-            $(this).addClass('invalid');
-            console.log('O nome deve ter mais de 2 caracteres.');
-        } else {
-            $(this).removeClass('invalid');
-        }
+        validate($(this));
     });
 
     // Manipulador do evento de perda de foco do campo email
     $('body').on('blur', '#e-mail', function () {
-        const email = $(this).val();
-        if (!validateEmail(email)) {
-            $(this).addClass('invalid');
-            console.log('O e-mail não é válido.');
-        } else {
-            $(this).removeClass('invalid');
-        }
+        validate($(this));
+    });
+
+    /*
+     * Pluguins 
+    */
+    $('body').on('blur', '#date', function () {
+        validate($(this));
+        $(this).mask('00/00/0000');
+    });
+    $('body').on('blur', '#time', function () {
+        validate($(this));
+        $(this).mask('00:00:00');
+    });
+    $('body').on('blur', '#cep', function () {
+        validate($(this));
+        $(this).mask('00000-000');
+    });
+    $('body').on('blur', '#phone', function () {
+        validate($(this));
+        $(this).mask('00000-0000');
+    });
+    $('body').on('blur', '#cpf', function () {
+        validate($(this));
+        $(this).mask('000.000.000-00');
     });
 })
