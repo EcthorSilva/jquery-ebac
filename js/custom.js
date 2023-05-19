@@ -77,4 +77,74 @@ $(document).ready(function(){ // jQuery( function($){
         // Exibe o modal
         myModal.show();
     });
+
+    /*
+     * Validação de formularios 
+     *  
+     * To Do:
+     * - checar se o nome é valido (mais de 2 caracteres)
+     * - checar se o email é valido com ao menos um @ e um ponto
+     * 
+    */
+
+    // Função para validar um campo de entrada
+    function validate(elem) {
+        if (elem.val() === '') {
+            console.log('O campo ' + elem.attr('name') + ' é obrigatório.');
+            elem.addClass('invalid');
+            return false;
+        } else {
+            elem.removeClass('invalid');
+            return true;
+        }
+    }
+
+    // Função para validar o nome (deve ter mais de 2 caracteres)
+    function validateName(name) {
+        return name.length > 2;
+    }
+
+    // Função para validar o email (deve ter um formato válido)
+    function validateEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+
+    // Manipulador do evento de envio do formulário
+    $('body').on('submit', '.modal-body .form', function (e) {
+        e.preventDefault();
+
+        const inputName = $('#nome');
+        const inputEmail = $('#e-mail');
+
+        if (inputName.hasClass('invalid') || inputEmail.hasClass('invalid')) {
+            console.log('Campos inválidos');
+            return false;
+        } else {
+            // Submeter o formulário se os campos forem válidos
+            $(this).get(0).submit();
+        }
+    });
+
+    // Manipulador do evento de perda de foco do campo nome
+    $('body').on('blur', '#nome', function () {
+        const name = $(this).val();
+        if (!validateName(name)) {
+            $(this).addClass('invalid');
+            console.log('O nome deve ter mais de 2 caracteres.');
+        } else {
+            $(this).removeClass('invalid');
+        }
+    });
+
+    // Manipulador do evento de perda de foco do campo email
+    $('body').on('blur', '#e-mail', function () {
+        const email = $(this).val();
+        if (!validateEmail(email)) {
+            $(this).addClass('invalid');
+            console.log('O e-mail não é válido.');
+        } else {
+            $(this).removeClass('invalid');
+        }
+    });
 })
